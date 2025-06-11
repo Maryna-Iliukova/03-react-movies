@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './App.module.css';
+import css from "./App.module.css";
 import toast, { Toaster } from "react-hot-toast";
 import SearchBar from '../SearchBar/SearchBar';
 import MovieGrid from "../MovieGrid/MovieGrid";
@@ -49,8 +49,11 @@ export default function App() {
   };
 
   return (
-    <>
-      <SearchBar onSubmit={handleSearch} />
+    <div className={css.app}>
+      <SearchBar action={(formData) => {
+      const query = formData.get("query") as string;
+      handleSearch(query);
+      }} />
       <Toaster position="top-right" />
 
       {isLoading && <Loader />}
@@ -61,6 +64,6 @@ export default function App() {
       {selectedMovie && (
       <MovieModal movie={selectedMovie} onClose={handleCloseModal} />
     )}
-    </>
+    </div>
   );
 }

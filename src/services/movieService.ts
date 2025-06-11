@@ -19,7 +19,7 @@ interface FetchMoviesParams {
     query,
     page = 1,
   }: FetchMoviesParams): Promise<FetchMoviesResponse> {
-    const response = await axios.get(`${API_URL}`, {
+    const response = await axios.get<FetchMoviesResponse>(API_URL, {
       params: {
         query,
         include_adult: false,
