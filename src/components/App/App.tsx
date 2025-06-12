@@ -13,6 +13,7 @@ export default function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 
   const handleSearch = async (query: string) => {
     try {
@@ -37,7 +38,7 @@ export default function App() {
       setIsLoading(false);
     }
   };
-  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+
 
   const handleSelect = (movie: Movie) => {
     console.log("Selected movie:", movie);
@@ -50,10 +51,7 @@ export default function App() {
 
   return (
     <div className={css.app}>
-      <SearchBar action={(formData) => {
-      const query = formData.get("query") as string;
-      handleSearch(query);
-      }} />
+      <SearchBar onSubmit={handleSearch} />
       <Toaster position="top-right" />
 
       {isLoading && <Loader />}
